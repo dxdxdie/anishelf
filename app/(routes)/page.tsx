@@ -1,23 +1,21 @@
-"use client";
+import { getTopAnime } from "@/lib/jikan";
+import {
+    dehydrate,
+    HydrationBoundary,
+    QueryClient,
+} from "@tanstack/react-query";
+import TopAnimeList from "@/comp/features/anime/top-anime-list";
 
-import { useTopAnime } from "@/hooks/use-top-anime";
+export default async function Home() {
+    const queryClient = new QueryClient();
 
-export default function Home() {
-    const { data, isLoading, isError, error } = useTopAnime();
-
-    if (isLoading) {
-        return <p>Загрузка...</p>;
-    }
-    if (isError) {
-        return <p>Ошибка {error.message}</p>;
-    }
-    if (!data) return null;
-
+    await queryClient.prefetchQuery({
+        queryKey: ["anime", "top"],
+        queryFn: () => getTopAnime(12),
+    });
     return (
-        <ul>
-            {data.map((element) => (
-                <li key={element.mal_id}>{element.title}</li>
-            ))}
-        </ul>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <TopAnimeList />
+        </HydrationBoundary>
     );
 }
