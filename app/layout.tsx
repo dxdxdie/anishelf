@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/comp/layout/header";
 import Footer from "@/comp/layout/footer";
+import { QueryProvider } from "@/comp/providers/query-provider";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -17,7 +18,7 @@ export default function RootLayout({
         <html lang="ru" className="dark">
             <body className="bg-zinc-950 text-zinc-100 min-h-screen">
                 <Header />
-                <main>{children}</main>
+                <QueryProvider>{children}</QueryProvider>
                 <Footer />
             </body>
         </html>
