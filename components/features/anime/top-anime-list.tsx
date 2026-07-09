@@ -1,6 +1,7 @@
 "use client";
 
 import { useTopAnime } from "@/hooks/use-top-anime";
+import { AnimeCard } from "./anime-card";
 
 export default function TopAnimeList() {
     const { data, isLoading, isError, error } = useTopAnime();
@@ -14,10 +15,10 @@ export default function TopAnimeList() {
     if (!data) return null;
 
     return (
-        <ul>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {data.map((element) => (
-                <li key={element.mal_id}>{element.title}</li>
+              <AnimeCard key={element.mal_id} anime={element} />
             ))}
-        </ul>
+      </div>
     );
 }

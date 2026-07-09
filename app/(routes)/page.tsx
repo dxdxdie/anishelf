@@ -4,7 +4,7 @@ import {
     HydrationBoundary,
     QueryClient,
 } from "@tanstack/react-query";
-import TopAnimeList from "@/comp/features/anime/top-anime-list";
+import TopAnimeList from "@/components/features/anime/top-anime-list";
 
 export default async function Home() {
     const queryClient = new QueryClient();
