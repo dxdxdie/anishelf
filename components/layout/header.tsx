@@ -5,7 +5,7 @@ export default function Header() {
     return (
         <div className="flex justify-between">
             <Image
-                src="/150x150.png"
+                src="/logo.png"
                 alt="Icon"
                 width="150"
                 height="150"

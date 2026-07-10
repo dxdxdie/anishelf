@@ -13,7 +13,6 @@ export function AnimeCard({ anime }: AnimeCardProps) {
             <div className="relative h-64 w-full">
                 <Image
                     fill
-                    unoptimized
                     src={anime.images.jpg.large_image_url}
                     alt={anime.title}
                     className="object-cover object-top"
