@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import SearchBar from "../features/search/search-bar";
 
 export default function Header() {
     return (
@@ -13,12 +13,7 @@ export default function Header() {
             />
             <ul className="flex gap-4 mr-4">
                 <li>
-                    <Link
-                        className="cursor-pointer hover:text-violet-400"
-                        href="/search"
-                    >
-                        Search
-                    </Link>
+                    <SearchBar />
                 </li>
                 <li>
                     <a
