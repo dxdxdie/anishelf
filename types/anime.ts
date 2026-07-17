@@ -1,8 +1,8 @@
 export type Anime = {
     mal_id: number;
     title: string;
-    title_english: string | null;
-    title_japanese: string | null;
+    title_english?: string | null;
+    title_japanese?: string | null;
     synopsis: string | null;
     episodes: number | null;
     score: number | null;
@@ -11,7 +11,7 @@ export type Anime = {
     aired: {
         from: string | null;
         string: string;
-    }
+    };
     images: {
         jpg: { large_image_url: string };
     };
