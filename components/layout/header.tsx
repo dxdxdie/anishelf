@@ -1,36 +1,49 @@
 import Image from "next/image";
 import SearchBar from "../features/search/search-bar";
+import Link from "next/link";
+import { createClient } from "@/utils/supabase/server";
+import ProfileDropdown from "../features/auth/profile-dropdown";
 
-export default function Header() {
+export default async function Header() {
+    const supabase = await createClient();
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
     return (
         <div className="flex justify-between">
-            <Image
-                src="/logo.png"
-                alt="Icon"
-                width="150"
-                height="150"
-                loading="eager"
-            />
+            <Link href="/">
+                <Image
+                    src="/logo.png"
+                    alt="Icon"
+                    width="150"
+                    height="150"
+                    loading="eager"
+                />
+            </Link>
             <ul className="flex gap-4 mr-4">
                 <li>
                     <SearchBar />
                 </li>
                 <li>
-                    <a
+                    <Link
                         className="cursor-pointer hover:text-violet-400"
                         href="/library"
                     >
                         Library
-                    </a>
+                    </Link>
                 </li>
-                <li>
-                    <a
-                        className="cursor-pointer hover:text-violet-400"
-                        href="/profile"
-                    >
-                        Profile
-                    </a>
-                </li>
+                {user ? (
+                    <li>
+                        <ProfileDropdown
+                            email={user.email ?? ""}
+                            avatarUrl={user.user_metadata.avatar_url}
+                        />
+                    </li>
+                ) : (
+                    <li>
+                        <Link href="/auth">Login</Link>
+                    </li>
+                )}
             </ul>
         </div>
     );
