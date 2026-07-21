@@ -2,7 +2,7 @@ import { type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     let response = NextResponse.next({ request });
 
     const supabase = createServerClient(
@@ -29,11 +29,17 @@ export async function middleware(request: NextRequest) {
         data: { user },
     } = await supabase.auth.getUser();
     if (
-        (!user && request.nextUrl.pathname.startsWith("/profile")) ||
-        request.nextUrl.pathname.startsWith("/library")
+        !user &&
+        (request.nextUrl.pathname.startsWith("/profile") ||
+            request.nextUrl.pathname.startsWith("/library"))
     ) {
         return NextResponse.redirect(new URL("/auth", request.url));
     }
+
+    if (user && request.nextUrl.pathname.startsWith("/auth")) {
+        return NextResponse.redirect(new URL("/", request.url));
+    }
+
     return response;
 }
 

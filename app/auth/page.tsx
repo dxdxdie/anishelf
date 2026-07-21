@@ -8,7 +8,7 @@ const AuthPage = () => {
         const supabase = createClient();
         await supabase.auth.signInWithOAuth({
             provider: "github",
-            options: { redirectTo: window.location.origin + "/profile" },
+            options: { redirectTo: window.location.origin + "/auth/callback" },
         });
     };
     return <Button onClick={handleLogin}>Login with GitHub</Button>;
